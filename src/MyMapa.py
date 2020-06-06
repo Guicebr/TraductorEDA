@@ -1,3 +1,4 @@
+import random
 from src.MyNodo import MyNodo
 
 
@@ -5,9 +6,8 @@ class MyMapa:
 
     def __init__(self, Nivel):
         assert isinstance(Nivel, int)
-        if Nivel-1 <0:
-            Nivel = 1
-        self.Nivel = Nivel-1
+        if Nivel<0: Nivel = 0
+        self.Nivel = Nivel
         self.LNodos = []
         self.LChar = []
 
@@ -16,24 +16,21 @@ class MyMapa:
             if letra not in self.LChar:
                 self.LChar.append(letra)
         print(self.LChar)
-
         tam = len(self.LChar)
         nivel = self.Nivel
-
         self.LNodos = MyNodo(tam)
 
         if(nivel > 0):
-            for i in range(tam):
-                self.LNodos.Datos[i] = MyNodo(tam)
-                self.crearNodo(self.LNodos.Datos[i], nivel-1)
 
-        tame = len(entrada)
-        entrada = entrada + entrada[0:0+self.Nivel+1]
+            #Tamaño de la entrada
+            tame = len(entrada)
+            #Para evitar problemas de desborddamiento añadimos caracteres según el nivel
+            entrada = entrada + entrada[0:self.Nivel]
 
-        for i in range(tame):
-            fin = i+self.Nivel+1
-            #print(entrada[i:fin])
-            self.addDatos(self.LNodos, entrada[i:fin], self.Nivel)
+            for i in range(tame):
+                fin = i+self.Nivel
+                #print(entrada[i:fin])
+                self.addDatos(self.LNodos, entrada[i:fin], self.Nivel)
 
 
 
@@ -49,15 +46,15 @@ class MyMapa:
         return 0
 
     def addDatos(self, nodo, cad, nivel):
-        if nivel < 1:
+        if nivel < 2:
             pos = self.LChar.index(cad)
             nodo.Datos[pos] = nodo.Datos[pos] + 1
             nodo.SumD = nodo.SumD + 1
-            return 0
         else:
             pos = self.LChar.index(cad[0:1])
+            if(type(nodo)!= type(nodo.Datos[pos])):
+                nodo.Datos[pos] = MyNodo(len(self.LChar))
             self.addDatos(nodo.Datos[pos], cad[1:], nivel-1)
-        return 0
 
     def printLNodos(self, nodo, nivel):
 
@@ -84,5 +81,7 @@ class MyMapa:
             nc = self.getNextChar(nodo.Datos[pos], cad[1:], nivel - 1)
         return nc
 
+    def getRandomChar(self):
+        return self.LChar[random.randrange(0, len(self.LChar))]
 
 
