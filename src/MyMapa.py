@@ -29,7 +29,7 @@ class MyMapa:
             # Para evitar problemas de desborddamiento añadimos caracteres según el nivel
             entrada = entrada + entrada[0:self.Nivel]
 
-            #print("Texto Entrada ", entrada)
+            print("Texto Entrada ", entrada)
             for i in range(tame):
                 fin = i + self.Nivel
                 # print(entrada[i:fin])
@@ -57,8 +57,7 @@ class MyMapa:
             pos = self.LChar.index(cad[0:1])
             if type(nodo.Datos[pos]) != type(nodo):
                 nodo.Datos[pos] = MyNodo(len(self.LChar))
-
-            nodo.SumD += nodo.Datos[pos].SumD+1
+            nodo.SumD += nodo.Datos[pos].SumD
             self.addDatos(nodo.Datos[pos], cad[1:], nivel - 1)
 
     def printLNodos(self, nodo, nivel):
@@ -81,9 +80,26 @@ class MyMapa:
         else:
             pos = self.LChar.index(cad[0:1])
             if type(nodo.Datos[pos]) != type(nodo):
-                return nc
+                return self.getRandomCharNodo(nodo)
             else:
                 return self.getNextChar(nodo.Datos[pos], cad[1:], nivel - 1)
 
     def getRandomChar(self):
         return self.LChar[random.randrange(0, len(self.LChar))]
+
+    def getRandomCharNodo(self,nodo):
+        auxnodo = MyNodo(len(self.LChar))
+
+        #print("nodo")
+        #nodo.printNodo()
+        auxnodo.SumD = 0
+        for i in range(len(nodo.Datos)):
+            if(type(nodo.Datos[i])==type(nodo)):
+                auxnodo.Datos[i] = nodo.Datos[i].SumD
+            else:
+                auxnodo.Datos[i] = nodo.Datos[i]
+            #print(auxnodo.Datos[i])
+            auxnodo.SumD += auxnodo.Datos[i]
+        #print("auxnodo")
+        auxnodo.printNodo()
+        return self.LChar[auxnodo.getRNGiter()]

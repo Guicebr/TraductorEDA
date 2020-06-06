@@ -14,9 +14,9 @@ def main():
     Me gusta mucho mi casa porque puedo invitar a mis amigos a cenar o a ver el fútbol en mi televisión. Además, cerca de mi casa hay muchas tiendas para hacer la compra: panadería, carnicería o pescadería."""
 
 
-    #txti = "ab"                 #Texto de entrada
-    Nivel = 5                   #Nivel
-    TamTxtGen = 200             #Tamaño de texto generado
+    #txti = "abcdefg"                 #Texto de entrada
+    Nivel = 100           #Nivel
+    TamTxtGen = 200            #Tamaño de texto generado
     txto = ""                   #Texto generado
     start_time = time.time()    #Tiempo de inicio
 
@@ -25,7 +25,7 @@ def main():
 
     #print("Texto Original ", txti)
     # Para textos de entrada pequeños, duplicamos el texto original según el nivel
-    if (len(txti) <= mapa.Nivel):
+    if (len(txti) < mapa.Nivel):
         aux = math.floor(mapa.Nivel/len(txti))
         print(mapa.Nivel / len(txti), aux)
         for i in range(aux):
@@ -56,15 +56,6 @@ def main():
 
     print(Nivel, len(mapa.LChar), TamTxtGen, time.time() - start_time)
     print(txto)
-
-    """print(mapa.LNodos)
-    print(mapa.LNodos.Datos[0])
-    print(mapa.LNodos.Datos[1])
-    print(mapa.LNodos.Datos[0].Datos[0])
-    print(mapa.LNodos.Datos[0].Datos[1])
-    print(mapa.LNodos.Datos[1].Datos[0])
-    print(mapa.LNodos.Datos[1].Datos[1])"""
-
     #mapa.printLNodos(mapa.LNodos, mapa.Nivel)
 
 

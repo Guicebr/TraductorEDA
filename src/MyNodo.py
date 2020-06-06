@@ -22,6 +22,12 @@ class MyNodo:
             return i
 
         num = random.randrange(0, self.SumD+1)
+
+        """s = 0
+        for i in range(len(self.Datos)):
+            s += self.Datos[i]
+
+        print("num=", num, "sumD=", self.SumD, "sumD Real=",s)"""
         sum = 0
         for i in range(len(self.Datos)):
             sum = sum + self.Datos[i]
