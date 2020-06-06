@@ -1,0 +1,74 @@
+#!/usr/bin/python
+import math
+import time
+
+#from src.MyNodo import MyNodo
+from src.MyMapa import MyMapa
+
+
+def main():
+    #txti = """Yo vivo en Granada. Es una ciudad pequeña y tiene monumentos muy importantes, como la Alhambra. Aquí la comida es deliciosa y son famosos el gazpacho, el rebujito o el salmorejo.
+
+    #Mi nueva casa está en una calle ancha y tiene muchos árboles. El piso de arriba de mi casa tiene tres dormitorios y un despacho para trabajar. El piso de abajo tiene una cocina muy grande, un comedor con una mesa y seis sillas, un salón con dos sofás verdes, una televisión y cortinas. Además, tiene una pequeña terraza con piscina donde puedo tomar el sol en verano.
+
+    #Me gusta mucho mi casa porque puedo invitar a mis amigos a cenar o a ver el fútbol en mi televisión. Además, cerca de mi casa hay muchas tiendas para hacer la compra: panadería, carnicería o pescadería."""
+
+    txti = "a b c d e f"
+
+
+    Nivel = 0
+    start_time = 0
+
+    for n in range(10):
+        Nivel = n
+        TamTxtGen = 20
+
+        txto = ""
+        start_time = time.time()
+
+        mapa = MyMapa(Nivel)
+
+        #print(txti)
+
+        # Para textos de entrada pequeños, duplicamos el texto original según el nivel
+        if (len(txti) <= mapa.Nivel + 1):
+            aux = math.floor(mapa.Nivel/len(txti))
+            print(mapa.Nivel / len(txti), aux)
+
+            for i in range(aux):
+                txti = txti + txti
+        #print(txti)
+
+        mapa.inicializarMapa(txti)
+
+        # mapa.printLNodos(mapa.LNodos, mapa.Nivel)
+
+        # Generamos el texto de salida a partir del texto original para los primeros caracteres
+        txto = txto + txti[0:0 + mapa.Nivel + 1]
+        TamTxtGen = TamTxtGen - (mapa.Nivel+1)
+
+        #print(txto)
+        i = 0
+        while (i < TamTxtGen):
+            fin = i + mapa.Nivel + 1
+            #print(txto[i:fin])
+            txto = txto + mapa.getNextChar(mapa.LNodos, txto[i:fin], mapa.Nivel)
+            i = i+1
+
+        #print(len(txto))
+
+        print(Nivel, len(mapa.LChar), TamTxtGen, time.time() - start_time)
+        print(txto)
+
+        """print(mapa.LNodos)
+        print(mapa.LNodos.Datos[0])
+        print(mapa.LNodos.Datos[1])
+        print(mapa.LNodos.Datos[0].Datos[0])
+        print(mapa.LNodos.Datos[0].Datos[1])
+        print(mapa.LNodos.Datos[1].Datos[0])
+        print(mapa.LNodos.Datos[1].Datos[1])"""
+
+        #mapa.printLNodos(mapa.LNodos, mapa.Nivel)
+
+
+main()
